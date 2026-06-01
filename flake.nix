@@ -12,7 +12,6 @@
         inherit system;
         overlays = [ self.overlays."${system}".default ];
       };
-      architecture = if system == "x86_64-linux" then "amd64" else "arm64";
     in
     rec {
       overlays = {
@@ -22,14 +21,22 @@
       };
       packages.wings = pkgs.buildGoModule rec {
         pname = "wings";
-        version = "1.11.13";
+        version = "1.12.3";
 
-        src = pkgs.fetchurl {
-          url = "https://github.com/pterodactyl/wings/archive/refs/tags/v${version}.tar.gz";
-          sha256 = "sha256-0nxOSSpRJiCPaeA25GT2X9k94OPJECO5TnQeQn0h1Zw=";
+        src = pkgs.fetchFromGitHub {
+          owner = "pterodactyl";
+          repo = "wings";
+          rev = "v${version}";
+          hash = "sha256-+iEKAliBJlM/Af5uBGzv4B/zkcXSF9sBvSswMwhu5/w=";
         };
 
-        vendorHash = "sha256-eWfQE9cQ7zIkITWwnVu9Sf9vVFjkQih/ZW77d6p/Iw0=";
+        vendorHash = "sha256-BtATik0egFk73SNhawbGnbuzjoZioGFWeA4gZOaofTI=";
+
+        ldflags = [
+          "-s"
+          "-w"
+          "-X github.com/pterodactyl/wings/system.Version=${version}"
+        ];
 
         doCheck = false;
 
@@ -44,4 +51,3 @@
       packages.default = pkgs.wings;
     });
 }
-
