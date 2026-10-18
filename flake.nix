@@ -21,16 +21,16 @@
       };
       packages.wings = pkgs.buildGoModule rec {
         pname = "wings";
-        version = "1.12.3";
+        version = "1.13.4";
 
         src = pkgs.fetchFromGitHub {
           owner = "pterodactyl";
           repo = "wings";
           rev = "v${version}";
-          hash = "sha256-+iEKAliBJlM/Af5uBGzv4B/zkcXSF9sBvSswMwhu5/w=";
+          hash = "sha256-McD+dQChR3nAaZp1vsyykAqNvrV+CAmZgmjaOR6D5+c=";
         };
 
-        vendorHash = "sha256-BtATik0egFk73SNhawbGnbuzjoZioGFWeA4gZOaofTI=";
+        vendorHash = "sha256-98hvLcpcsZqC0DQ8JQ+xQ/OmvQ2fvO7neSBf3NHLlZw=";
 
         ldflags = [
           "-s"
